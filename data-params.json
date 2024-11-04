@@ -1,0 +1,5 @@
+{
+    "assembly": ["GCF_000309985.2"],
+    "chrom": ["NC_024803.2"],
+    "outpath": "data/raw"
+}

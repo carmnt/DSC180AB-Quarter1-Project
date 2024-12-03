@@ -42,8 +42,8 @@ class MaskLayer(nn.Module):
 
     def forward(self, x, training=False):
         if training:
-            random_mask = torch.rand(x.shape) > self.mask_percent
-            random_mask = random_mask.astype(x.dtype)
+            random_mask = torch.rand(x.shape, device=x.device) > self.mask_percent
+            random_mask = random_mask.to(x.dtype)
             mask_output = x * random_mask
             return mask_output
         return x
@@ -66,7 +66,7 @@ class ConvolutionLayer(nn.Module):
                 out_channels=hidden_size,
                 padding="same",
                 kernel_size=9,
-                dilation=dilation
+                dilation=dilation # DILATION
             ),
             TransposeLayer(),
             nn.GELU(),
@@ -85,7 +85,7 @@ class ConvolutionLayer(nn.Module):
         return x
 
 class ConvolutionalBlocks(nn.Module):
-    def __init__(self, num_layers=25):
+    def __init__(self, num_layers=1, hidden_size=512):
         super().__init__()
         dilations = get_dilation_schedule()
         self.layers = nn.ModuleList(

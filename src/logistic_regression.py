@@ -58,7 +58,7 @@ def get_pred_regions():
 
     model = GPN()
 
-    model.load_state_dict(torch.load('output/best_model_v3.pth', weights_only=True))
+    model.load_state_dict(torch.load('output/best_model.pth', weights_only=True))
 
     model.to(device)
 

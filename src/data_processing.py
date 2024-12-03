@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 import bioframe as bf
-from sklearn.model_selection import StratifiedKFold
 from .gpn.data import load_table, load_fasta, get_transcript_introns, Genome, save_fasta, filter_length, make_windows
 import os
 
@@ -108,31 +107,6 @@ def process_data():
     windows.to_parquet('output/embedding/windows.parquet', index=False)
     print('Created output/embedding/windows.parquet')
     print('Data processed successfully')
-
-# windows = pd.read_parquet("output/embedding/windows.parquet")
-
-# data = windows.copy()
-# data = data[['chrom', 'strand', 'center_start','center_end','Region']]
-# genome = Genome('output/genome.fa.gz')
-
-# data['seq'] = [genome.get_seq(row.chrom, row.center_start, row.center_end, row.strand) for row in data.itertuples()]
-
-# X = data['seq']
-# y = data['Region']
-
-# skf = StratifiedKFold(n_splits=5, random_state=42, shuffle=True)
-
-# X = data['seq']
-# y = data['Region']
-# skf.get_n_splits(X, y)
-
-# kfolds = skf.split(X, y)
-# train, test = next(kfolds)
-
-# x_train, y_train = X.iloc[train], y.iloc[train]
-# x_test, y_test = X.iloc[test], y.iloc[test]
-
-# from torch.utils.data import Dataset, DataLoader
 
 
 

@@ -16,6 +16,9 @@ import torch.nn as nn
 from torch.nn import Embedding
 import torch.nn.functional as F
 import random
+from torch.utils.data import Dataset, DataLoader
+from .features import get_features_labels
+
 
 tqdm.pandas()
 
@@ -194,3 +197,15 @@ def make_windows(intervals, window_size, step_size, add_rc=False):
         ).values,
         ignore_index=True,
     )
+    
+class DNADataset(Dataset):
+    def __init__(self, dataframe):
+        self.dataframe = dataframe
+
+    def __len__(self):
+        return len(self.dataframe)
+
+    def __getitem__(self, index):
+        row = self.dataframe.iloc[index]
+        features, labels = get_features_labels(pd.DataFrame([row]))
+        return features.squeeze(0), labels.squeeze(0)

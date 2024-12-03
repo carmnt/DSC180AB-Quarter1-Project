@@ -11,6 +11,9 @@ def ensure_directory(path):
     
 def process_data():
     ensure_directory('output')
+    ensure_directory('output/embedding')
+    ensure_directory('output/classification')
+    ensure_directory('output/figures')
     gtf = load_table('raw/annotations.gtf.gz')
     repeats = pd.read_csv('input/repeats.bed.gz', sep="\t").rename(columns=dict(genoName="chrom", genoStart="start", genoEnd="end"))[["chrom", "start", "end"]]
 
@@ -104,6 +107,7 @@ def process_data():
     ensure_directory('output/embedding')
     windows.to_parquet('output/embedding/windows.parquet', index=False)
     print('Created output/embedding/windows.parquet')
+    print('Data processed successfully')
 
 # windows = pd.read_parquet("output/embedding/windows.parquet")
 

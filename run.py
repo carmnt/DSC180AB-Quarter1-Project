@@ -4,13 +4,11 @@ import sys
 import json
 import pandas as pd
 
-from etl import get_data
-
-def main(targets):
-    if 'data' in targets:
-        with open('data-params.json') as fh:
-            data_params = json.load(fh)
-        get_data(**data_params)
-
-if __name__ == '__main__':
-    args = sys.argv[1:]
+from src.etl import run_etl
+from src.data_processing import process_data
+if __name__ == "__main__":
+    try:
+        run_etl()
+        process_data()
+    except Exception as e:
+        print(f"An error occurred during the ETL process: {e}")

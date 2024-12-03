@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import bioframe as bf
 from sklearn.model_selection import StratifiedKFold
-from gpn.data import load_table, load_fasta, get_transcript_introns, Genome, save_fasta, filter_length, make_windows
+from .gpn.data import load_table, load_fasta, get_transcript_introns, Genome, save_fasta, filter_length, make_windows
 import os
 
 def ensure_directory(path):
@@ -30,7 +30,7 @@ def process_data():
     gtf_introns["feature"] = "intron"
     gtf = pd.concat([gtf, gtf_introns], ignore_index=True)
     gtf.to_parquet('output/annotation.expanded.parquet', index=False)
-    print('output/annotation.expanded.parquet Created')
+    print('Created output/annotation.expanded.parquet')
     annotation = pd.read_parquet('output/annotation.expanded.parquet')
 
     features_of_interest = [
@@ -103,7 +103,7 @@ def process_data():
     print(windows)
     ensure_directory('output/embedding')
     windows.to_parquet('output/embedding/windows.parquet', index=False)
-    print('created output/embedding/windows.parquet')
+    print('Created output/embedding/windows.parquet')
 
 # windows = pd.read_parquet("output/embedding/windows.parquet")
 

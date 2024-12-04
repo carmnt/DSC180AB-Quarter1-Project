@@ -36,8 +36,8 @@ def run_one_epoch():
     # Find most common chromosome
     most_common_chrom = all_train.chrom.value_counts(normalize=True).sort_values(ascending=False).index[0]
 
-    train = all_train[all_train.chrom == most_common_chrom].reset_index(drop=True)[:500]
-    valid = all_valid[all_valid.chrom == most_common_chrom].reset_index(drop=True)[:500]
+    train = all_train[all_train.chrom == most_common_chrom].reset_index(drop=True)
+    valid = all_valid[all_valid.chrom == most_common_chrom].reset_index(drop=True)
 
     combined_df = pd.concat([train, valid], ignore_index=True)
     train = combined_df.iloc[:int(0.8 * len(combined_df))]

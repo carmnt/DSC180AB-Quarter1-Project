@@ -28,6 +28,28 @@ def get_features_labels(data):
     y = F.one_hot(X, num_classes=5).float()
     return X, y
 
+def gpn_tokenizer(seq):
+    """
+    Tokenizes nucleotides in a single DNA sequence.
+    """
+    dataset = ["acgt"]
+    tokenizer = Tokenizer(models.BPE())
+    tokenizer.normalizer = normalizers.Lowercase()
+    trainer = BpeTrainer(vocab_size=1)
+
+    tokenizer.train_from_iterator(dataset, trainer=trainer, length=len(dataset))
+    tokenizer = PreTrainedTokenizerFast(tokenizer_object=tokenizer)
+    return tokenizer.encode(seq)
+
+def gpn_get_features_labels(data):
+    """
+    Applies tokenizer to entire dataset and one-hot encodes labels.
+    Returns GPN model input(X) and output labels(y) as (X, y).
+    """
+    X = torch.stack((data.seq.apply(gpn_tokenizer).apply(torch.tensor) + 1).tolist())
+    y = F.one_hot(X, num_classes=5).float()
+    return X, y
+
 class MaskLayer(nn.Module):
     def __init__(self, mask_percent=0.15):
         super().__init__()

@@ -2,9 +2,11 @@
 
 ## Important Files
 
-**run.py-** main script to execute GPN pipeline. Integrates model, feature extraction, and data handling for complete workflow.
+**run.py-** main script to execute GPN pipeline. Integrates model, feature extraction, model training, and data handling for complete workflow.
 
-**requirements.txt-** text file to install all required dependencies.
+**run_figures.py-** python script to execute only figure creation
+
+**environment.yml-** yml file to install all required dependencies through conda.
 
 ### notebook (folder)
 
@@ -32,4 +34,4 @@
 
 **Note:** We recommend having a decent GPU with a good amount of VRAM (at least 11 GB) for the training portion as the training runs significantly slower when running with CPU + RAM.
 
-Make sure to have all required dependencies installed before running. After cloning repo, type "pip install -r requirements.txt" into your terminal. Then, input “python run.py” or “python run.py > [file_name].txt” (replace ‘file_name’ with desired name) if you’d like a text log file.
+Make sure to have conda installed before running the following code. After cloning repo, type "conda env create -f environment.yml" into your terminal. Then, type "conda activate gpn-env" to activate the environment. Then, input “python run.py” to run all src files or “python run.py > [file_name].txt” (replace ‘file_name’ with desired name) if you’d like a text log file. Input "run_figures.py" if you only want to create the figures.
